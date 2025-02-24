@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Sushant Bhattarai</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/unicons.css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+
+    <link rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
+    integrity="sha512-..." 
+    crossorigin="anonymous" 
+    referrerpolicy="no-referrer" />
+
+
+    <!-- MAIN STYLE -->
+    <link rel="stylesheet" href="css/tooplate-style.css">
+  </head>
+  <body>
+      <!-- MENU -->
+      <nav class="navbar navbar-expand-sm navbar-light">
+          <div class="container" style="position:fixed;top:0;right:0;left:0;z-index:1030;background-color: white; border-bottom: 1px solid black;">
+              <a class="navbar-brand" href="index.html"><img src="images/logo.png" alt="Logo" ></a>
+
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                  aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                  <span class="navbar-toggler-icon"></span>
+                  <span class="navbar-toggler-icon"></span>
+              </button>
+
+              <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link"><span data-hover="Home">Home</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="research.html" class="nav-link"><span data-hover="Research">Research</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="publications.html" class="nav-link"><span data-hover="Publications">Publications</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="experience.html" class="nav-link"><span data-hover="Experience">Experience</span></a>
+                    </li>
+                    <li class="nav-item">
+                      <a href="vitae.html" class="nav-link"><span data-hover="Vitae">Vitae</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="contact.html" class="nav-link"><span data-hover="Contact">Contact</span></a>
+                </li>
+                </ul>
+
+                  <!-- <ul class="navbar-nav ml-lg-auto">
+                      <div class="ml-lg-4">
+                        <div class="color-mode d-lg-flex justify-content-center align-items-center">
+                          <i class="color-mode-icon"></i>
+                          Color mode
+                        </div>
+                      </div>
+                  </ul> -->
+              </div>
+          </div>
+      </nav>
+
+
+      <section class="about full-screen d-lg-flex justify-content-center align-items-center" id="about" style="padding-top: 15px;">
+        <div class="container">
+            <div class="row">
+                <p></p><h4 style="margin-bottom: 0; margin-left: 62px;">CV - Sushant Bhattarai</h4>
+                <!-- Container for the PDF pages -->
+                <div id="pdfViewer"></div>
+                
+                <!-- PDF.js library -->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.7.107/pdf.min.js"></script>
+                <script>
+                    // URL to your PDF file
+                    const pdfUrl = 'docs/Sushant.pdf';
+
+                    // Set up the PDF.js worker
+                    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.7.107/pdf.worker.min.js';
+
+                    // Asynchronously download the PDF
+                    pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+                    const viewer = document.getElementById('pdfViewer');
+
+                    // Loop through each page and render it on a canvas
+                    for (let pageNum = 1; pageNum <= pdf.numPages; pageNum++) {
+                        pdf.getPage(pageNum).then(page => {
+                        const scale = 1.5; // Adjust scale as needed
+                        const viewport = page.getViewport({ scale });
+                        
+                        // Create canvas element for this page
+                        const canvas = document.createElement('canvas');
+                        const context = canvas.getContext('2d');
+                        canvas.height = viewport.height;
+                        canvas.width = viewport.width;
+                        viewer.appendChild(canvas);
+                        
+                        // Render page into canvas context
+                        const renderContext = {
+                            canvasContext: context,
+                            viewport: viewport
+                        };
+                        page.render(renderContext);
+                        });
+                    }
+                    }).catch(error => {
+                    console.error('Error rendering PDF: ', error);
+                    document.getElementById('pdfViewer').innerText = 'An error occurred while loading the CV.';
+                    });
+                </script>
+
+
+            </div>
+
+        </div>
+      </section>
+
+
+      <!-- FOOTER -->
+     <footer class="footer py-5">
+        <div class="container">
+             <div class="row">
+                  <div class="col-lg-12 col-12">                                
+                      <p class="copyright-text text-center">Copyright &copy; 2025 Sushant Bhattarai | All rights reserved</p>
+                      <!-- <p class="copyright-text text-center">Designed by <a rel="nofollow" href="https://www.facebook.com/tooplate">Tooplate</a></p> -->
+                  </div>
+                  
+             </div>
+        </div>
+   </footer>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/Headroom.js"></script>
+  <script src="js/jQuery.headroom.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/smoothscroll.js"></script>
+  <script src="js/custom.js"></script>
+
+</body>
+</html>

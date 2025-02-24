@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>My CV (LaTeX)</title>
+  <!-- Load the latex.js library -->
+  <script src="https://unpkg.com/latex.js/dist/latex.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    #latexCV { max-width: 800px; margin: auto; }
+  </style>
+</head>
+<body>
+  <h1>My CV</h1>
+  <!-- Container where the rendered LaTeX CV will appear -->
+  <div id="latexCV">Loading CV...</div>
+  
+  <script>
+    // Fetch your LaTeX file
+    fetch('docs/article.tex')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok: ' + response.statusText);
+        }
+        return response.text();
+      })
+      .then(tex => {
+        try {
+          // Create a new generator instance for rendering HTML
+          const generator = new latexjs.HtmlGenerator({ hyphenate: false });
+          // Parse the LaTeX content using the generator
+          latexjs.parse(tex, { generator: generator });
+          // Get the resulting DOM fragment and render it into the page
+          const htmlFragment = generator.domFragment();
+          const container = document.getElementById('latexCV');
+          container.innerHTML = '';
+          container.appendChild(htmlFragment);
+        } catch (error) {
+          console.error('LaTeX parse error:', error);
+          document.getElementById('latexCV').innerText =
+            'Error parsing LaTeX file. Please ensure your file is compatible with latex.js.';
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching the CV:', error);
+        document.getElementById('latexCV').innerText =
+          'An error occurred while loading the CV.';
+      });
+  </script>
+</body>
+</html>
